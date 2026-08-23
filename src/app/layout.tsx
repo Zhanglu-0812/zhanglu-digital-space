@@ -2,20 +2,19 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: {
-    default: "张璐的数字空间",
-    template: "%s | 张璐的数字空间",
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
-  description: "张璐的个人数字空间 - 分享我的思考、项目和经历",
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://zhanglu.dev"
-  ),
+  description: siteConfig.description,
+  metadataBase: new URL(siteConfig.url),
   openGraph: {
     type: "website",
     locale: "zh_CN",
-    siteName: "张璐的数字空间",
+    siteName: siteConfig.name,
   },
 };
 

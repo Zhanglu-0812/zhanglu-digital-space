@@ -15,7 +15,7 @@ export function Header() {
           href="/"
           className="text-lg font-semibold text-[var(--color-text-primary)] hover:text-[var(--color-primary-600)] transition-colors"
         >
-          张璐
+          张路
         </Link>
         <ul className="flex items-center gap-6">
           {navItems.map((item) => (

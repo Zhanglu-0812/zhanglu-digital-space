@@ -1,44 +1,46 @@
 import type { MetadataRoute } from "next";
+import { getAllPosts, getAllProjects } from "@/lib/mdx";
+import { siteConfig } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://zhanglu.dev";
-
-  // Static pages
   const staticPages: MetadataRoute.Sitemap = [
     {
-      url: baseUrl,
-      lastModified: new Date(),
+      url: siteConfig.url,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
+      url: `${siteConfig.url}/about`,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
+      url: `${siteConfig.url}/blog`,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/projects`,
-      lastModified: new Date(),
+      url: `${siteConfig.url}/projects`,
       changeFrequency: "monthly",
       priority: 0.8,
     },
   ];
 
-  // TODO: Add dynamic pages from Sanity CMS
-  // const posts = await client.fetch('*[_type == "post"] { "slug": slug.current, publishedAt }')
-  // const dynamicPages = posts.map(post => ({
-  //   url: `${baseUrl}/blog/${post.slug}`,
-  //   lastModified: new Date(post.publishedAt),
-  //   changeFrequency: 'monthly' as const,
-  //   priority: 0.7,
-  // }))
+  const postPages: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
+    url: `${siteConfig.url}/blog/${post.slug}`,
+    lastModified: new Date(post.frontmatter.date),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
 
-  return [...staticPages];
+  const projectPages: MetadataRoute.Sitemap = getAllProjects().map(
+    (project) => ({
+      url: `${siteConfig.url}/projects/${project.slug}`,
+      lastModified: new Date(project.frontmatter.date),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    })
+  );
+
+  return [...staticPages, ...postPages, ...projectPages];
 }

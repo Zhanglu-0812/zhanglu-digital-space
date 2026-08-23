@@ -4,7 +4,7 @@ import { getAllProjects } from "@/lib/mdx";
 
 export const metadata: Metadata = {
   title: "项目",
-  description: "张璐的项目展示 - 看看我做过什么",
+  description: "张路的项目展示 - 看看我做过什么",
 };
 
 const statusMap: Record<string, string> = {

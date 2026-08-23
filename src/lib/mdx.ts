@@ -30,6 +30,114 @@ export interface ContentItem<T> {
   content: string;
 }
 
+function requireText(
+  value: unknown,
+  field: string,
+  filePath: string
+): string {
+  if (typeof value !== "string" || value.trim() === "") {
+    throw new Error(`${filePath}: ${field} 必须填写文字内容`);
+  }
+  return value;
+}
+
+function requireDate(value: unknown, filePath: string): string {
+  const date = requireText(value, "date", filePath);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || Number.isNaN(Date.parse(date))) {
+    throw new Error(`${filePath}: date 必须使用 YYYY-MM-DD 格式`);
+  }
+  return date;
+}
+
+function optionalStringList(
+  value: unknown,
+  field: string,
+  filePath: string
+): string[] | undefined {
+  if (value === undefined) return undefined;
+  if (!Array.isArray(value) || value.some((item) => typeof item !== "string")) {
+    throw new Error(`${filePath}: ${field} 必须是文字列表`);
+  }
+  return value;
+}
+
+function parsePostFrontmatter(
+  data: Record<string, unknown>,
+  filePath: string
+): PostFrontmatter {
+  if (data.pinned !== undefined && typeof data.pinned !== "boolean") {
+    throw new Error(`${filePath}: pinned 必须是 true 或 false`);
+  }
+
+  return {
+    title: requireText(data.title, "title", filePath),
+    date: requireDate(data.date, filePath),
+    excerpt: requireText(data.excerpt, "excerpt", filePath),
+    category:
+      data.category === undefined
+        ? undefined
+        : requireText(data.category, "category", filePath),
+    tags: optionalStringList(data.tags, "tags", filePath),
+    coverImage:
+      data.coverImage === undefined
+        ? undefined
+        : requireText(data.coverImage, "coverImage", filePath),
+    pinned: data.pinned as boolean | undefined,
+  };
+}
+
+function parseProjectFrontmatter(
+  data: Record<string, unknown>,
+  filePath: string
+): ProjectFrontmatter {
+  const validStatuses = ["in-progress", "completed", "archived"];
+  if (
+    data.status !== undefined &&
+    (typeof data.status !== "string" || !validStatuses.includes(data.status))
+  ) {
+    throw new Error(
+      `${filePath}: status 必须是 in-progress、completed 或 archived`
+    );
+  }
+
+  if (data.order !== undefined && typeof data.order !== "number") {
+    throw new Error(`${filePath}: order 必须是数字`);
+  }
+
+  let links: ProjectFrontmatter["links"];
+  if (data.links !== undefined) {
+    if (!Array.isArray(data.links)) {
+      throw new Error(`${filePath}: links 必须是链接列表`);
+    }
+    links = data.links.map((link) => {
+      if (typeof link !== "object" || link === null) {
+        throw new Error(`${filePath}: links 中的每一项都必须包含名称和网址`);
+      }
+      const item = link as Record<string, unknown>;
+      const url = requireText(item.url, "links.url", filePath);
+      try {
+        new URL(url);
+      } catch {
+        throw new Error(`${filePath}: ${url} 不是有效网址`);
+      }
+      return {
+        label: requireText(item.label, "links.label", filePath),
+        url,
+      };
+    });
+  }
+
+  return {
+    title: requireText(data.title, "title", filePath),
+    date: requireDate(data.date, filePath),
+    description: requireText(data.description, "description", filePath),
+    techStack: optionalStringList(data.techStack, "techStack", filePath),
+    status: data.status as ProjectFrontmatter["status"],
+    links,
+    order: data.order as number | undefined,
+  };
+}
+
 // Get all posts
 export function getAllPosts(): ContentItem<PostFrontmatter>[] {
   const postsDir = path.join(CONTENT_DIR, "posts");
@@ -45,7 +153,7 @@ export function getAllPosts(): ContentItem<PostFrontmatter>[] {
 
     return {
       slug,
-      frontmatter: data as PostFrontmatter,
+      frontmatter: parsePostFrontmatter(data, filePath),
       content,
     };
   });
@@ -70,7 +178,7 @@ export function getPostBySlug(
 
   return {
     slug,
-    frontmatter: data as PostFrontmatter,
+    frontmatter: parsePostFrontmatter(data, filePath),
     content,
   };
 }
@@ -90,7 +198,7 @@ export function getAllProjects(): ContentItem<ProjectFrontmatter>[] {
 
     return {
       slug,
-      frontmatter: data as ProjectFrontmatter,
+      frontmatter: parseProjectFrontmatter(data, filePath),
       content,
     };
   });
@@ -119,7 +227,7 @@ export function getProjectBySlug(
 
   return {
     slug,
-    frontmatter: data as ProjectFrontmatter,
+    frontmatter: parseProjectFrontmatter(data, filePath),
     content,
   };
 }

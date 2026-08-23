@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "关于我",
-  description: "了解张璐 - 我的故事、价值观和经历",
+  description: "了解张路 - 我的故事、价值观和经历",
 };
 
 // Placeholder data
 const profile = {
-  name: "张璐",
+  name: "张路",
   avatar: null, // Will be replaced with Sanity image
-  intro: "你好，我是张璐。欢迎来到我的数字空间。",
+  intro: "你好，我是张路。欢迎来到我的数字空间。",
   story: `我是一个对世界充满好奇的人。我相信持续学习和分享的力量，这也是我创建这个数字空间的原因。
 
 在这里，我会分享我的思考、项目和成长轨迹。我希望通过这些内容，能够帮助到和我有相似困惑或兴趣的人。

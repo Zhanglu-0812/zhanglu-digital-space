@@ -2,7 +2,7 @@
 
 ## 项目概述
 
-张璐的个人数字空间，集个人简介、文章博客、项目展示于一体。
+张路的个人数字空间，集个人简介、文章博客、项目展示于一体。
 
 - **线上地址**：https://zhanglu-digital-space.vercel.app
 - **代码仓库**：https://github.com/Zhanglu-0812/zhanglu-digital-space
@@ -21,7 +21,7 @@
 ## 目录结构
 
 ```
-├── content/                ← 内容文件（你主要操作的目录）
+├── content/                ← 由 Codex 整理和维护的内容文件
 │   ├── posts/              ← 文章（.mdx 文件）
 │   └── projects/           ← 项目（.mdx 文件）
 ├── src/
@@ -43,12 +43,17 @@
 └── docs/                   ← 项目文档（本目录）
 ```
 
-## 如何添加文章
+## 与 Codex 协作发布文章
 
-1. 打开 GitHub 仓库的 `content/posts/` 目录
-2. 点击 `Add file` → `Create new file`
-3. 文件名格式：`my-article-title.mdx`（英文 slug）
-4. 复制以下模板：
+1. 将文章原文发给 Codex，可以直接粘贴或提供文件
+2. Codex 整理标题、摘要、分类、标签、英文网址名称和网页排版
+3. Codex 在本地执行 `npm run check`，确认代码和生产构建通过
+4. 你确认文章内容与改动清单
+5. Codex 提交并推送到 GitHub，Vercel 随后自动部署
+
+未经你的明确确认，Codex 不会将改动推送到 GitHub。
+
+文章在项目中的文件格式如下：
 
 ```mdx
 ---
@@ -73,9 +78,6 @@ tags: ["标签1", "标签2"]
 > 引用文字
 ```
 
-5. 填写提交信息，点击 `Commit changes`
-6. 1-2 分钟后网站自动更新
-
 ### 文章 Frontmatter 字段说明
 
 | 字段 | 必填 | 说明 |
@@ -86,13 +88,9 @@ tags: ["标签1", "标签2"]
 | category | 否 | 分类，如「随笔」「思考」「方法论」 |
 | tags | 否 | 标签数组 |
 
-### 下架文章
+### 修改或下架文章
 
-在 GitHub 上删除对应的 `.mdx` 文件，提交后网站自动更新。
-
-### 修改文章
-
-在 GitHub 上找到对应文件，点击编辑按钮，修改后提交。
+告诉 Codex 需要修改或下架的文章。Codex 会先在本地完成操作并展示检查结果，得到你的确认后再推送。
 
 ## 如何添加项目
 
@@ -130,11 +128,11 @@ order: 1
 
 ## 如何修改个人信息
 
-编辑 `src/app/page.tsx` 文件中的 `profile` 变量：
+个人资料采用逐项访谈方式维护。你提供真实事实、公开范围和表达偏好，Codex 负责整理成网页内容。当前首页资料位于 `src/app/page.tsx`：
 
 ```typescript
 const profile = {
-  name: "张璐",           // 姓名
+  name: "张路",           // 姓名
   tagline: "探索者 / 创造者 / 终身学习者",  // 一句话介绍
   bio: "欢迎来到...",      // 首页简介
   tags: ["产品设计", "技术创新"],  // 标签
@@ -145,7 +143,9 @@ const profile = {
 
 - **自动部署**：推送到 GitHub main 分支后，Vercel 自动构建并部署
 - **构建命令**：`npm run build`（Vercel 自动执行）
+- **完整检查**：`npm run check`（代码规范检查 + 生产构建）
 - **环境变量**：仅 `NEXT_PUBLIC_SITE_URL`（部署后在 Vercel 设置中更新为正式域名）
+- **上传原则**：本地检查通过并经张路确认后，才允许推送到 GitHub
 
 ## 域名规划
 
@@ -158,5 +158,7 @@ const profile = {
 
 绑定域名后需更新：
 1. `.env.local` 中的 `NEXT_PUBLIC_SITE_URL`
-2. Vercel 项目设置中的域名
-3. `src/app/page.tsx` 中的个人信息（如有变化）
+2. Vercel 项目设置中的域名和 `NEXT_PUBLIC_SITE_URL`
+3. `public/llms.txt` 中的网站地址
+
+域名未确定前，代码默认使用现有 Vercel 地址。`.env.example` 提供了环境变量示例。
