@@ -1,14 +1,7 @@
 import Link from "next/link";
 import { getAllPosts } from "@/lib/mdx";
 import { getAllProjects } from "@/lib/mdx";
-
-// 个人资料（后续可以移到单独的配置文件中）
-const profile = {
-  name: "张路",
-  tagline: "探索者 / 创造者 / 终身学习者",
-  bio: "欢迎来到我的数字空间。这里记录着我的思考、项目和成长轨迹。我相信持续学习和分享的力量。",
-  tags: ["产品设计", "技术创新", "个人成长", "阅读思考"],
-};
+import { profile } from "@/data/profile";
 
 export default function Home() {
   const posts = getAllPosts().slice(0, 3);

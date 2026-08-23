@@ -6,6 +6,7 @@
 
 - **线上地址**：https://zhanglu-digital-space.vercel.app
 - **代码仓库**：https://github.com/Zhanglu-0812/zhanglu-digital-space
+- **当前状态**：[查看项目状态与交接记录](./PROJECT_STATUS.md)
 
 ## 技术栈
 
@@ -162,3 +163,5 @@ const profile = {
 3. `public/llms.txt` 中的网站地址
 
 域名未确定前，代码默认使用现有 Vercel 地址。`.env.example` 提供了环境变量示例。
+
+> 2026-08-23 验证发现，当前网络对 `vercel.app` 的 DNS 解析存在异常。Vercel 已成功完成 Production 部署，但中国大陆访问稳定性需要在独立域名阶段单独评估。
