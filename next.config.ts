@@ -1,8 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // No special image configuration needed for MDX approach
-  // Images are stored in public/ directory
+  // Export plain static files so the site can be tested on Pages platforms.
+  output: "export",
 };
 
 export default nextConfig;
