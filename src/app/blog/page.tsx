@@ -11,7 +11,7 @@ export default function BlogPage() {
   const posts = getAllPosts();
 
   return (
-    <div className="max-w-3xl mx-auto px-6 py-16">
+    <div className="reading-shell">
       <h1 className="text-3xl font-bold mb-3 text-[var(--color-text-primary)]">
         文章
       </h1>
@@ -19,7 +19,7 @@ export default function BlogPage() {
         记录我的思考、学习和探索。
       </p>
 
-      <div className="space-y-10">
+      <div className="article-list">
         {posts.map((post) => (
           <Link
             key={post.slug}
@@ -32,7 +32,7 @@ export default function BlogPage() {
                   {post.frontmatter.date}
                 </time>
                 {post.frontmatter.category && (
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-primary-50)] text-[var(--color-primary-700)]">
+                  <span className="editorial-label">
                     {post.frontmatter.category}
                   </span>
                 )}
@@ -47,7 +47,7 @@ export default function BlogPage() {
                 {post.frontmatter.tags?.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs px-2 py-0.5 rounded bg-[var(--color-surface-secondary)] text-[var(--color-text-secondary)]"
+                    className="editorial-label"
                   >
                     {tag}
                   </span>

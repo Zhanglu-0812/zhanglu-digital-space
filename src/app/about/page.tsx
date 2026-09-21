@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="max-w-3xl mx-auto px-6 py-16">
+    <div className="reading-shell">
       {/* Intro */}
       <section className="mb-16">
         <h1 className="text-3xl font-bold mb-6 text-[var(--color-text-primary)]">
@@ -33,7 +33,7 @@ export default function AboutPage() {
           {profile.values.map((value) => (
             <div
               key={value.title}
-              className="border border-[var(--color-border)] rounded-lg p-5"
+              className="value-note"
             >
               <h3 className="font-medium text-[var(--color-primary-600)] mb-2">
                 {value.title}
@@ -55,7 +55,7 @@ export default function AboutPage() {
           {profile.skills.map((skill) => (
             <span
               key={skill}
-              className="text-sm px-4 py-2 rounded-full bg-[var(--color-primary-50)] text-[var(--color-primary-700)]"
+              className="editorial-label"
             >
               {skill}
             </span>

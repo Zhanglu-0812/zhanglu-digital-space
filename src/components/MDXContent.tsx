@@ -2,9 +2,17 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeHighlight from "rehype-highlight";
+import { ArticleImage } from "./ArticleImage";
 
 // Custom components for MDX
 const components = {
+  ArticleImage,
+  ProjectPlaceholder: ({ children }: { children: React.ReactNode }) => (
+    <div className="project-placeholder">
+      <span>内容待补充</span>
+      <div>{children}</div>
+    </div>
+  ),
   // Callout component
   Callout: ({
     type = "info",
@@ -35,11 +43,12 @@ const components = {
 
 interface MDXContentProps {
   source: string;
+  className?: string;
 }
 
-export function MDXContent({ source }: MDXContentProps) {
+export function MDXContent({ source, className = "" }: MDXContentProps) {
   return (
-    <div className="prose">
+    <div className={`prose ${className}`.trim()}>
       <MDXRemote
         source={source}
         components={components}

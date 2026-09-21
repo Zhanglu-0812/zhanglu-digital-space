@@ -15,10 +15,16 @@ export interface PostFrontmatter {
 }
 
 export interface ProjectFrontmatter {
+  draft?: boolean;
+  updated?: string;
   title: string;
   date: string;
   description: string;
+  projectType?: string;
+  role?: string;
+  period?: string;
   techStack?: string[];
+  accessInfo?: string;
   status?: "in-progress" | "completed" | "archived";
   links?: { label: string; url: string }[];
   order?: number;
@@ -90,6 +96,7 @@ function parseProjectFrontmatter(
   data: Record<string, unknown>,
   filePath: string
 ): ProjectFrontmatter {
+  if (data.draft !== undefined && typeof data.draft !== "boolean") throw new Error(`${filePath}: draft 必须是布尔值`);
   const validStatuses = ["in-progress", "completed", "archived"];
   if (
     data.status !== undefined &&
@@ -131,7 +138,16 @@ function parseProjectFrontmatter(
     title: requireText(data.title, "title", filePath),
     date: requireDate(data.date, filePath),
     description: requireText(data.description, "description", filePath),
+    projectType: data.projectType === undefined ? undefined : requireText(data.projectType, "projectType", filePath),
+    role: data.role === undefined ? undefined : requireText(data.role, "role", filePath),
+    period: data.period === undefined ? undefined : requireText(data.period, "period", filePath),
+    draft: data.draft as boolean | undefined,
+    updated: data.updated === undefined ? undefined : requireDate(data.updated, filePath),
     techStack: optionalStringList(data.techStack, "techStack", filePath),
+    accessInfo:
+      data.accessInfo === undefined
+        ? undefined
+        : requireText(data.accessInfo, "accessInfo", filePath),
     status: data.status as ProjectFrontmatter["status"],
     links,
     order: data.order as number | undefined,
@@ -204,7 +220,7 @@ export function getAllProjects(): ContentItem<ProjectFrontmatter>[] {
   });
 
   // Sort by order, then by date
-  return projects.sort((a, b) => {
+  return projects.filter((project) => !project.frontmatter.draft).sort((a, b) => {
     const orderA = a.frontmatter.order ?? 999;
     const orderB = b.frontmatter.order ?? 999;
     if (orderA !== orderB) return orderA - orderB;
@@ -225,11 +241,9 @@ export function getProjectBySlug(
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
 
-  return {
-    slug,
-    frontmatter: parseProjectFrontmatter(data, filePath),
-    content,
-  };
+  const frontmatter = parseProjectFrontmatter(data, filePath);
+  if (frontmatter.draft) return null;
+  return { slug, frontmatter, content };
 }
 
 // Get all post slugs for static generation
@@ -244,12 +258,7 @@ export function getAllPostSlugs(): string[] {
 
 // Get all project slugs for static generation
 export function getAllProjectSlugs(): string[] {
-  const projectsDir = path.join(CONTENT_DIR, "projects");
-  if (!fs.existsSync(projectsDir)) return [];
-  return fs
-    .readdirSync(projectsDir)
-    .filter((f) => f.endsWith(".mdx"))
-    .map((f) => f.replace(/\.mdx$/, ""));
+  return getAllProjects().map((project) => project.slug);
 }
 
 // Get all unique categories

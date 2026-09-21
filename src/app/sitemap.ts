@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts, getAllProjects } from "@/lib/mdx";
+import { getAllThoughts } from "@/lib/thoughts";
 import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -11,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
+    { url: `${siteConfig.url}/thoughts`, changeFrequency: "daily", priority: 0.8 },
     {
       url: `${siteConfig.url}/about`,
       changeFrequency: "monthly",
@@ -38,11 +40,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const projectPages: MetadataRoute.Sitemap = getAllProjects().map(
     (project) => ({
       url: `${siteConfig.url}/projects/${project.slug}`,
-      lastModified: new Date(project.frontmatter.date),
+      lastModified: new Date(project.frontmatter.updated ?? project.frontmatter.date),
       changeFrequency: "monthly",
       priority: 0.7,
     })
   );
 
-  return [...staticPages, ...postPages, ...projectPages];
+  const thoughtPages: MetadataRoute.Sitemap = getAllThoughts().map((thought) => ({
+    url: `${siteConfig.url}/thoughts/${thought.slug}`,
+    lastModified: new Date(thought.createdAt ?? thought.date),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [...staticPages, ...postPages, ...projectPages, ...thoughtPages];
 }

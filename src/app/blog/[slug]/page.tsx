@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPostBySlug, getAllPostSlugs } from "@/lib/mdx";
 import { MDXContent } from "@/components/MDXContent";
+import { ArticleImage } from "@/components/ArticleImage";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -34,7 +35,7 @@ export default async function BlogPostPage({ params }: PageProps) {
   }
 
   return (
-    <article className="max-w-3xl mx-auto px-6 py-16">
+    <article className="reading-shell">
       {/* Header */}
       <header className="mb-12">
         <div className="flex items-center gap-3 mb-4">
@@ -50,7 +51,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             {post.frontmatter.date}
           </time>
           {post.frontmatter.category && (
-            <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-primary-50)] text-[var(--color-primary-700)]">
+            <span className="editorial-label">
               {post.frontmatter.category}
             </span>
           )}
@@ -66,7 +67,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             {post.frontmatter.tags.map((tag) => (
               <span
                 key={tag}
-                className="text-xs px-2 py-0.5 rounded bg-[var(--color-surface-secondary)] text-[var(--color-text-secondary)]"
+                className="editorial-label"
               >
                 {tag}
               </span>
@@ -76,6 +77,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       </header>
 
       {/* Content */}
+      {post.frontmatter.coverImage && <ArticleImage src={post.frontmatter.coverImage} priority />}
       <MDXContent source={post.content} />
 
       {/* Footer */}
