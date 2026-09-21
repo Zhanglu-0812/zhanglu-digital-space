@@ -21,6 +21,11 @@
 # misc
 .DS_Store
 *.pem
+/.content-trash/
+/.trae/
+/临时使用/
+/tools/content-manager/
+/启动内容管理工具.command
 
 # debug
 npm-debug.log*
