@@ -1,4 +1,4 @@
-const DEFAULT_SITE_URL = "https://zhanglu-digital-space.vercel.app";
+const DEFAULT_SITE_URL = "https://byzhanglu.com";
 
 function normalizeSiteUrl(url: string) {
   return url.replace(/\/$/, "");

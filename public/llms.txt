@@ -22,4 +22,4 @@
 
 ## 网站
 
-- 网站：https://zhanglu-digital-space.vercel.app
+- 网站：https://byzhanglu.com
