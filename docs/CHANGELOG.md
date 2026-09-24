@@ -1,5 +1,38 @@
 # 变更日志
 
+## 2026-09-24｜全站 canonical 发布
+
+- 为首页、主要列表页和文章／项目／思绪详情页设置指向正式域名的自引用 canonical；新增内容沿用详情页规则自动生成。
+- 将 SEO 基准网址固定为正式域名，避免本机预览环境变量把 canonical、sitemap 和 robots 输出为 localhost；移除已无用途的 `.env.example`。
+- 将导出页面、sitemap 与 canonical 的逐页核对加入 `npm run check`；当前 27 个页面检查通过。
+- 代码提交 `f206a6f` 已推送至 `main`，Cloudflare Pages 生产部署成功；正式站首页、文章、项目和思绪页面的 canonical 均经线上抽查。
+
+## 2026-09-24｜Pages 默认域名跳转正式站
+
+- 经张路确认，为 `zhanglu-digital-space-test.pages.dev` 建立专用 Cloudflare 批量重定向列表和规则，301 跳转至 `https://byzhanglu.com`，保留路径与查询参数，不包含预览子域名。
+- 已验证默认域名跳转、正式站访问以及独立预览地址的 `noindex` 响应；网站代码未提交或推送。
+
+## 2026-09-24｜测试域名跳转正式站
+
+- 经张路确认，在 Cloudflare 新增并启用 `test.byzhanglu.com` 到 `https://byzhanglu.com` 的 301 规则，保留路径和查询参数。
+- 已验证首页、文章页与查询参数的跳转，正式目标页面返回 200，原有 `www` 跳转正常；网站代码未提交或推送。
+
+## 2026-09-23｜发布《离职第5天，我不再逼自己一次选对》
+
+- 新增文章《离职第5天，我不再逼自己一次选对》，包含 7 张图片和完整图片尺寸登记。
+- 将 6 张大尺寸 PNG 转为 WebP，网页图片体积从约 11 MB 降至约 0.76 MB，原始 PNG 继续保留在本地忽略目录。
+- 修正文章内 `www.byzhanglu.com` 的 Markdown 链接；发布前生产构建、本地页面预览和正式站上线检查均通过。
+- 发布提交为 `f9bd549`，已推送到 GitHub `main` 并由 Cloudflare Pages 部署到 `https://byzhanglu.com`。
+
+## 2026-09-22｜正式域名切换至 Cloudflare Pages
+
+- 将 Cloudflare Pages 的生产分支设为 GitHub `main` 并启用自动部署；沿用项目名 `zhanglu-digital-space-test`，不因名称中的 `test` 重建项目。
+- 提交 `1981325` 将代码默认站点地址、`.env.example` 与 `public/llms.txt` 更新为 `https://byzhanglu.com`；Pages 生产站点地图已使用正式域名。
+- 将 `byzhanglu.com` 的权威名称服务器由 DNSPod 切换到 Cloudflare：`pranab.ns.cloudflare.com`、`sneh.ns.cloudflare.com`。
+- 将 `byzhanglu.com` 绑定到现有 Pages 项目；Cloudflare 控制台显示根域名与 `test.byzhanglu.com` 均处于活动状态，SSL 已启用。
+- 为 `www.byzhanglu.com` 添加 Cloudflare 代理 DNS，创建并启用批量重定向列表 `zhanglu_space` 与规则 `zhanglu_space_www`，用于 301 跳转到 `https://byzhanglu.com`。
+- 正式网址现为 `https://byzhanglu.com`；Vercel 原部署和 Pages 自动生成的 `pages.dev` 地址继续作为备用入口。
+
 ## 2026-09-22｜网站新版正式发布至 main
 
 - 将 2026-09-21 完成确认的网站视觉、4 篇文章、2 个已发布项目、15 条思绪、项目案例页、思绪系统、手机适配、图片与字体资源正式推送至 GitHub `main`。

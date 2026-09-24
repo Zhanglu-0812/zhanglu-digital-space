@@ -4,8 +4,9 @@
 
 张路的个人数字空间，集个人简介、文章博客、项目展示于一体。
 
-- **当前正式线上地址**：https://zhanglu-digital-space.vercel.app
-- **Cloudflare Pages 测试域名**：https://test.byzhanglu.com
+- **当前正式线上地址**：https://byzhanglu.com
+- **Cloudflare Pages 项目**：`zhanglu-digital-space-test`（内部项目名，生产分支为 `main`）
+- **原测试域名**：https://test.byzhanglu.com（现已 301 跳转正式站）
 - **代码仓库**：https://github.com/Zhanglu-0812/zhanglu-digital-space
 - **当前状态**：[查看项目状态与交接记录](./PROJECT_STATUS.md)
 - **风格调整（另一个对话）**：[风格交接说明](./STYLE_HANDOFF.md)
@@ -19,8 +20,8 @@
 | 语言 | TypeScript | 类型安全 |
 | 样式 | Tailwind CSS 4 | 原子化 CSS |
 | 内容管理 | MDX 文件 | 存放在 content/ 目录，通过 GitHub 管理 |
-| 部署 | Vercel（现有正式站）/ Cloudflare Pages（测试通过） | 当前在 Pages 测试域名上继续改版，正式切换前保留 Vercel |
-| 域名 | 测试子域名已绑定 | `test.byzhanglu.com` 已生效；根域名 `byzhanglu.com` 待正式版本完成后绑定 |
+| 部署 | Cloudflare Pages（正式）/ Vercel（备用） | Pages 自动部署 GitHub `main`，Vercel 继续保留原部署 |
+| 域名 | 正式根域名已绑定 | `test.byzhanglu.com` 与 `www` 均已配置 301 跳转到 `byzhanglu.com` |
 
 ## 目录结构
 
@@ -54,7 +55,7 @@
 2. Codex 整理标题、摘要、分类、标签、英文网址名称和网页排版
 3. Codex 在本地执行 `npm run check`，确认代码和生产构建通过
 4. 你确认文章内容与改动清单
-5. Codex 提交并推送到 GitHub，Vercel 随后自动部署
+5. Codex 提交并推送到 GitHub `main`，Cloudflare Pages 随后自动部署；发布后检查正式域名
 
 未经你的明确确认，Codex 不会将改动推送到 GitHub。
 
@@ -161,28 +162,29 @@ const profile = {
 
 ## 部署方式
 
-- **现有正式部署**：推送到 GitHub `main` 分支后，Vercel 自动构建并部署
-- **Pages 测试部署**：Cloudflare Pages 当前使用 `codex/cloudflare-pages-test` 分支，测试域名为 `test.byzhanglu.com`
+- **正式部署**：Cloudflare Pages 项目 `zhanglu-digital-space-test` 自动部署 GitHub `main` 分支
+- **正式域名**：`https://byzhanglu.com`
+- **Pages 默认地址**：`https://zhanglu-digital-space-test.pages.dev`（现已 301 跳转正式站；独立预览地址仍可访问）
+- **原测试域名**：`https://test.byzhanglu.com`（已 301 跳转正式站）
+- **备用部署**：Vercel 原 Production 部署继续保留，但不再作为唯一正式网址
 - **构建命令**：`npm run build`
 - **Pages 输出目录**：`out`
 - **完整检查**：`npm run check`（代码规范检查 + 生产构建）
-- **环境变量**：仅 `NEXT_PUBLIC_SITE_URL`（正式切换时在最终部署环境更新为正式域名）
+- **canonical 检查**：`npm run check` 还会逐页核对导出 HTML、站点地图和正式域名 canonical；新文章、项目、思绪自动按 slug 生成，新板块需在页面元数据与 sitemap 中登记
+- **SEO 基准网址**：`src/lib/site.ts` 固定为 `https://byzhanglu.com`，本地构建也输出正式域名的 canonical、sitemap 和 robots
 - **上传原则**：本地检查通过并经张路确认后，才允许推送到 GitHub
 
-## 域名规划
+## 域名与 DNS
 
-当前正式站仍使用 Vercel 免费域名：`zhanglu-digital-space.vercel.app`。Cloudflare Pages 已通过 `zhanglu-digital-space-test.pages.dev` 完成第一轮测试，并已绑定 `test.byzhanglu.com`；DNS、HTTPS 和主要页面均验证正常。
+正式域名为 `byzhanglu.com`，已于 2026-08-28 在腾讯云购买并完成实名认证。2026-09-22，域名的权威名称服务器由 DNSPod 切换至 Cloudflare，根域名随后绑定当前 Pages 项目并启用自动 HTTPS。
 
-正式域名已经确定为 `byzhanglu.com`，并于 2026-08-28 在腾讯云购买、完成实名认证。2026-09-10 正式确定采用境外托管、不办理中国大陆 ICP 备案。当前使用测试域名承载内容、布局和互动功能的开发验收；形成可正式发布的基础版本后，再切换根域名。具体进度与操作顺序以 [项目状态与交接记录](./PROJECT_STATUS.md) 为准。
+- Cloudflare 名称服务器：`pranab.ns.cloudflare.com`、`sneh.ns.cloudflare.com`
+- `byzhanglu.com`：正式站，Pages 自定义域状态为活动，SSL 已启用
+- `test.byzhanglu.com`：2026-09-24 起 301 跳转至正式站，保留路径和查询参数
+- `www.byzhanglu.com`：已添加 Cloudflare 代理 DNS，并启用到 `https://byzhanglu.com` 的 301 批量重定向规则
+- `zhanglu-digital-space-test.pages.dev`：Pages 自动生成的默认地址，2026-09-24 起 301 跳转正式站；项目名中的 `test` 不影响 `main` 生产分支或正式域名
 
-绑定域名后需更新：
-1. `.env.local` 中的 `NEXT_PUBLIC_SITE_URL`
-2. 最终部署环境中的 `NEXT_PUBLIC_SITE_URL`
-3. `public/llms.txt` 中的网站地址
-
-正式域名启用前，代码仍默认使用现有 Vercel 地址。`.env.example` 提供了环境变量示例。
-
-> 2026-09-11，Cloudflare Pages 免费地址和 `test.byzhanglu.com` 已完成当前网络下的访问验证，暂未发现明显问题。仍需继续观察中国大陆不同运营商和不同时段的跨境访问表现；如未来改用中国大陆服务器或大陆 CDN，再重新评估 ICP 备案。
+代码中的 SEO 基准网址和 `public/llms.txt` 均使用 `https://byzhanglu.com`；原 `NEXT_PUBLIC_SITE_URL` 环境变量现不参与 canonical、sitemap 或 robots 生成。后续发布仍需检查 DNS、HTTPS、主要页面和 `www` 重定向；并继续观察中国大陆不同运营商和不同时段的跨境访问表现。
 
 
 ## 新版内容维护（2026-09-11，本地待验收）

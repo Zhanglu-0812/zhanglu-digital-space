@@ -1,15 +1,56 @@
 # 个人数字空间：项目状态与交接记录
 
-最后更新：2026-09-22
+最后更新：2026-09-24
 
-## 2026-09-22 正式 main 发布完成
+## 2026-09-24 全站 canonical 已发布
+
+1. 首页、关于页、文章／项目／思绪列表页及各详情页均已在元数据中设置自引用 canonical，指向 `https://byzhanglu.com` 的对应页面；新增文章、项目和思绪会按 slug 自动生成。SEO 基准网址现固定在 `src/lib/site.ts`，避免本机 `.env.local` 的 localhost 值进入导出页面。
+2. `npm run check` 已通过，并对站点地图中的 27 个静态 HTML 页面逐一验证：canonical 数量为 1、地址与 sitemap 一致且使用正式域名。后续新增板块若遗漏 canonical 或 sitemap，完整检查会失败。
+3. 代码提交 `f206a6f` 已推送至 GitHub `main`；Cloudflare Pages 生产部署显示 `success`。正式站首页、文章、项目、思绪页面及 sitemap、robots 均返回 200；抽查的四类页面各输出 1 条正确 canonical，线上 sitemap 包含 27 个 URL。
+
+## 2026-09-24 Pages 默认域名已跳转正式站
+
+1. 经张路当次确认，已在 Cloudflare 新增专用批量重定向列表 `zhanglu_pages_dev` 与已启用规则 `zhanglu_pages_dev_to_official`，仅将 `zhanglu-digital-space-test.pages.dev` 301 跳转到 `https://byzhanglu.com`；保留路径和查询参数，不匹配其下的预览子域名。
+2. 线上验证：默认域名首页和带文章路径、查询参数的地址均返回 301；一个独立预览地址仍返回 200 且带 `X-Robots-Tag: noindex`；正式站首页返回 200，`www` 与 `test` 仍正确跳转。
+3. 当时全站 canonical 尚未添加，现已按上方记录发布；Pages 域名跳转本身没有改动 Git 代码。
+
+## 2026-09-24 测试域名已跳转正式站
+
+1. 经张路当次确认，已在 Cloudflare 为 `test.byzhanglu.com` 部署独立重定向规则「测试域名跳转正式站」：匹配该主机名，301 跳转至 `https://byzhanglu.com`，保留路径和查询参数。未改动 `www` 原有规则、Pages 项目或 Git 部署。
+2. 线上验证：测试域名首页与带文章路径、查询参数的请求均返回 301；目标文章返回 200；`www` 原有跳转仍返回 301。
+3. 当时 Pages 默认域名的重复内容仍待单独处理，现已按上方记录完成跳转；全站 canonical 尚未添加。本轮没有提交、推送网站代码。
+
+## 2026-09-23 SEO 诊断已留存（待处理）
+
+1. 已完成当前正式站的 SEO 基础诊断，详细问题、证据、优先级和建议顺序已记录在 [`docs/SEO_AUDIT.md`](./SEO_AUDIT.md)。
+2. 当前最高优先级是处理正式域名、`test.byzhanglu.com` 与 Pages 默认域名的重复内容，补全 canonical，并建立 Google Search Console 的收录监测。
+3. 本轮只留存诊断，没有修改网站功能、DNS 或 Cloudflare 配置，没有提交、推送或上线。
+
+## 2026-09-23 新文章已发布
+
+1. 新文章《离职第5天，我不再逼自己一次选对》已通过提交 `f9bd549` 推送到 GitHub `main`，并由 Cloudflare Pages 部署到正式站。
+2. 发布前将 6 张大尺寸 PNG 转为 WebP，网页图片体积由约 11 MB 减至约 0.76 MB；原始 PNG 保留在本地忽略目录。文章内正式网址已修正为可点击链接。
+3. `npm run check` 通过并生成 32 个静态页面；本地预览已检查标题、标签、封面、正文、配图与站内链接。
+4. 正式文章页、首页、文章列表、站点地图和封面图均返回 HTTP 200；文章已进入列表与站点地图，`www` 访问正确跳转到主域名。
+
+## 2026-09-22 正式域名与 Cloudflare Pages 已启用
+
+1. 当前唯一正式网址为 `https://byzhanglu.com`；Cloudflare Pages 自定义域状态显示“活动”，SSL 已启用。`test.byzhanglu.com` 继续保留并同样处于活动状态。
+2. 腾讯云注册的 `byzhanglu.com` 已将权威名称服务器从 DNSPod 切换为 Cloudflare：`pranab.ns.cloudflare.com` 与 `sneh.ns.cloudflare.com`；公共 DNS 已能解析根域名与 `www`。
+3. Cloudflare Pages 沿用内部项目名 `zhanglu-digital-space-test`。该名称只影响自动生成的 `zhanglu-digital-space-test.pages.dev` 地址，不代表仍是测试环境，也不需要为正式上线重建项目。
+4. Pages 生产分支已设为 GitHub `main` 并开启自动部署；提交 `1981325`（`chore: configure official site URL`）已将代码默认地址、`.env.example` 和 `public/llms.txt` 更新为 `https://byzhanglu.com`，Pages 生产站点地图也已反映正式域名。
+5. `www.byzhanglu.com` 已添加 Cloudflare 代理 DNS；批量重定向列表 `zhanglu_space` 与规则 `zhanglu_space_www` 均处于活动／启用状态，用于 301 跳转到不带 `www` 的正式域名并保留路径和查询参数。后续发布检查时继续复查实际跳转结果。
+6. Vercel 原部署继续保留为备用地址，但今后的正式发布流程以“本地修改与检查 → 本人确认 → 独立提交 → 推送 `main` → 检查 Cloudflare Pages、正式域名、HTTPS 与主要页面”为准。
+7. 当前本地 Git 分支为 `main`，在本次文档更新前与 `origin/main` 同步；本轮仅更新本地项目文档，尚未提交或推送。
+
+## 2026-09-22 正式 main 发布完成（域名切换前记录）
 
 1. 张路已确认将当前完整版本直接发布到正式 `main`；本地 `main` 以快进方式纳入 Cloudflare Pages 静态导出准备及 2026-09-21 的网站、内容和文档提交，并成功推送至 GitHub。
-2. 本次网站发布提交为 `59edae5`，GitHub 已返回 Vercel 状态 `success`（Deployment has completed）。正式站继续使用 `https://zhanglu-digital-space.vercel.app`。
+2. 本次网站发布提交为 `59edae5`，GitHub 已返回 Vercel 状态 `success`（Deployment has completed）。在当时尚未完成域名切换，线上地址仍为 `https://zhanglu-digital-space.vercel.app`；当前状态以上方正式域名记录为准。
 3. 发布前重新执行 `npm run check`，检查通过并生成 31 个静态页面：4 篇文章、2 个已发布项目、15 条思绪及各列表页、关于页、站点地图和 robots。
 4. 本地内容管理工具、启动文件、原始 PNG、临时素材、删除备份、环境配置、依赖和构建缓存均由 `.gitignore` 排除，没有上传 GitHub。
 5. 新文章的 6 张网页图片已由约 14MB 的 PNG 转为约 1.14MB 的 WebP；原 PNG 仍保留在本机忽略目录。文章标题与正文一级标题、封面与正文首图按本人确认继续保留重复展示。
-6. 当前正式代码已上传并部署；后续内容更新继续遵守“本地修改与检查 → 本人确认 → 独立提交 → 推送 `main` → 检查 Vercel”的流程。
+6. 当时的正式代码已上传并部署；当前发布与检查流程已由上方 Cloudflare Pages 正式域名记录替代。
 
 ## 历史记录｜准备提交并上传 Git（2026-09-21）
 
