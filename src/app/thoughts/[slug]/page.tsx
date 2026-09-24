@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: thought.title ?? "一条思绪",
     description: getThoughtPreview(thought.content).preview,
+    alternates: { canonical: `/thoughts/${slug}` },
   };
 }
 

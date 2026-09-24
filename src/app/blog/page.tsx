@@ -5,6 +5,7 @@ import { getAllPosts } from "@/lib/mdx";
 export const metadata: Metadata = {
   title: "文章",
   description: "张路的文章 - 分享思考、经验和见解",
+  alternates: { canonical: "/blog" },
 };
 
 export default function BlogPage() {

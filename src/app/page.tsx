@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { getAllPosts, getAllProjects } from "@/lib/mdx";
@@ -7,6 +8,10 @@ import { HomeProgress } from "@/components/HomeProgress";
 import { HomeThoughtTimeline } from "@/components/HomeThoughtTimeline";
 import { profile } from "@/data/profile";
 import articleImages from "@/data/article-images.json";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   const allPosts = getAllPosts();

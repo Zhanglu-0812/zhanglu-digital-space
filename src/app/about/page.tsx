@@ -4,6 +4,7 @@ import { profile } from "@/data/profile";
 export const metadata: Metadata = {
   title: "关于我",
   description: "了解张路 - 我的故事、价值观和经历",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {
