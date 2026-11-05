@@ -283,5 +283,55 @@
     "width": 1122,
     "height": 1402,
     "alt": "图5：结果与速度"
+  },
+  "/images/posts/reviewing-with-ai/00-封面-回看与整理-v1.webp": {
+    "width": 1898,
+    "height": 829,
+    "alt": "回看与整理：从对话记录里留下有价值的发现"
+  },
+  "/images/posts/reviewing-with-ai/01-分组与分类-v1.webp": {
+    "width": 1536,
+    "height": 1024,
+    "alt": "照片分组判断哪些照片属于同一道菜；菜品分类判断菜品属于哪个菜单分类"
+  },
+  "/images/posts/reviewing-with-ai/02-一位战斗伙伴-v1.webp": {
+    "width": 1536,
+    "height": 1024,
+    "alt": "我和身旁的AI伙伴一起讨论、调整产品草图"
+  },
+  "/images/posts/reviewing-with-ai/03-复盘四步骤-v1.webp": {
+    "width": 1536,
+    "height": 1024,
+    "alt": "复盘四步骤：回顾、提炼、链接与赋能、提升"
+  },
+  "/images/posts/reviewing-with-ai/04-你提炼我补充-v1.webp": {
+    "width": 1536,
+    "height": 1024,
+    "alt": "共同复盘的分工：AI提炼、我补充、AI核查、我确认"
+  },
+  "/images/posts/reviewing-with-ai/ScreenShot_2026-11-05_151946_343@2x.webp": {
+    "width": 341,
+    "height": 989,
+    "alt": "进化项目的真实目录：按对话保存经验，通过index分类，保留raw复盘记录"
+  },
+  "/images/posts/reviewing-with-ai/05-复盘关系图-动态-v1.gif": {
+    "width": 1280,
+    "height": 1080,
+    "alt": "依据真实笔记链接重绘的动态关系图：四类经验、复盘来源和经验之间的关联"
+  },
+  "/images/posts/reviewing-with-ai/ScreenShot_2026-11-05_152118_523@2x.webp": {
+    "width": 770,
+    "height": 869,
+    "alt": "真实经验页节选：先看完整链路，再定位问题来源与工具介入点；保留场景、原话与具体方法"
+  },
+  "/images/posts/reviewing-with-ai/07-怎么使用-v1.webp": {
+    "width": 1536,
+    "height": 1024,
+    "alt": "把复盘经验用在提升自己和改进AI协作中"
+  },
+  "/images/posts/reviewing-with-ai/08-复盘四问-v1.webp": {
+    "width": 1122,
+    "height": 1402,
+    "alt": "从一件事开始复盘：当时想完成什么、什么值得回看、看见什么方法或习惯、留下什么并在下次使用"
   }
 }
