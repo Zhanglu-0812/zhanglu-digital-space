@@ -358,5 +358,25 @@
     "width": 1672,
     "height": 941,
     "alt": "手拿笔记本的人沿着一条路向远处走去"
+  },
+  "/images/posts/building-to-my-strengths/cover.webp": {
+    "width": 1898,
+    "height": 829,
+    "alt": "一只手把亮着的手机放在两副碗筷之间，木餐桌一角留着界面草图"
+  },
+  "/images/posts/building-to-my-strengths/home-first-draft.webp": {
+    "width": 780,
+    "height": 1456,
+    "alt": "按作者想法反复调整后的暂用首页试稿，展示小菜本、点餐单和拾忆三个入口"
+  },
+  "/images/posts/building-to-my-strengths/home-skill-draft.webp": {
+    "width": 450,
+    "height": 918,
+    "alt": "用 UI skill 试做的另一版首页，包含饭桌照片、点餐和记录入口"
+  },
+  "/images/posts/building-to-my-strengths/see-you-on-the-road.gif": {
+    "width": 1200,
+    "height": 240,
+    "alt": "「路上见」和「张路拾记」文末动图"
   }
 }
