@@ -1,5 +1,10 @@
 # 变更日志
 
+## 2026-11-12｜发布《做产品，我决定不和设计师比“好看”》
+
+- 按作者确认的预览发布，保留 v3 正文、元信息、封面与三处正文图。内容提交 `be3d9fc` 推送至 `main`，Cloudflare Pages 与 Vercel 部署成功。
+- 完整站点检查、桌面和手机排版通过。正文 HTML 与确认预览逐字节一致，四张图片 SHA-256、首页和文章列表入口、站点地图与 canonical 核对通过。正式地址为 https://byzhanglu.com/blog/building-to-my-strengths 。
+
 ## 2026-11-09｜发布《上班时做不了的事，裸辞后我开始做了》
 
 - 作者确认网页预览，保留正文、封面与四处插图。内容提交 `a0af720` 已推送至 `main`，Cloudflare Pages 与 Vercel 均部署成功。
