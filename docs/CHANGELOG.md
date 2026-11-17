@@ -1,5 +1,10 @@
 # 变更日志
 
+## 2026-11-17｜发布《第一版，是拿来找问题的》
+
+- 按作者确认的预览发布，保留正文、横版流程图封面及五处正文图。内容提交 `def76f1`，Cloudflare Pages 与 Vercel 均成功。
+- 网站完整检查、电脑和手机预览通过。正式正文与确认预览一致，六张图片、首页与文章列表入口、站点地图及 canonical 核对通过。正式地址：https://byzhanglu.com/blog/ai-mini-program-first-version 。
+
 ## 2026-11-12｜发布《做产品，我决定不和设计师比“好看”》
 
 - 按作者确认的预览发布，保留 v3 正文、元信息、封面与三处正文图。内容提交 `be3d9fc` 推送至 `main`，Cloudflare Pages 与 Vercel 部署成功。
