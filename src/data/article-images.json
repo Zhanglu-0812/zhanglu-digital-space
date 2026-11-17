@@ -378,5 +378,35 @@
     "width": 1200,
     "height": 240,
     "alt": "「路上见」和「张路拾记」文末动图"
+  },
+  "/images/posts/ai-mini-program-first-version/royce-horizontal-cover.webp": {
+    "width": 1600,
+    "height": 681,
+    "alt": "Royce 论文图 4 横向改排：测试回退到程序设计，程序设计回退到软件需求"
+  },
+  "/images/posts/ai-mini-program-first-version/where-to-start.webp": {
+    "width": 1600,
+    "height": 555,
+    "alt": "桌前的人在手机页面草图和代表后端数据的方块之间思考从哪里开始"
+  },
+  "/images/posts/ai-mini-program-first-version/team-and-solo.webp": {
+    "width": 1536,
+    "height": 1024,
+    "alt": "左侧不同人分别标记流程，右侧一个人与 AI 面对整张流程图"
+  },
+  "/images/posts/ai-mini-program-first-version/royce-figure-2.webp": {
+    "width": 1402,
+    "height": 940,
+    "alt": "Royce 1970 年论文图 2：从系统需求到运行的单向流程"
+  },
+  "/images/posts/ai-mini-program-first-version/royce-figure-4.webp": {
+    "width": 1406,
+    "height": 912,
+    "alt": "Royce 1970 年论文图 4：两条回退箭头从测试回到程序设计、从程序设计回到软件需求"
+  },
+  "/images/posts/ai-mini-program-first-version/try-the-critical-part.webp": {
+    "width": 1536,
+    "height": 1024,
+    "alt": "同一个小程序草模的两次尝试：先做一版找问题，带着发现继续做"
   }
 }
